@@ -11,7 +11,6 @@ import {
   TableHead,
   TableRow,
   Box,
-  Card,
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import axios from "axios";
@@ -36,14 +35,16 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    width: "100%",
+  },
+  container: {
+    maxHeight: 400,
   },
 });
 
 function Home() {
   const classes = useStyles();
   const [data, setData] = useState({ response: [] });
-  const [updatedNumbers, setupdatedNumbers] = useState({ body: [] });
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
@@ -52,25 +53,6 @@ function Home() {
           method: "GET",
           headers: {
             "x-rapidapi-host": "covid-193.p.rapidapi.com",
-            "x-rapidapi-key":
-              "8529a60fe1msh86abdd1bb20286cp190477jsnc68714d9e22c",
-          },
-        }
-      );
-      setData(result.data);
-      console.log(result.data);
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        "https://covid-19-live-stats.p.rapidapi.com/livestats",
-        {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "covid-19-live-stats.p.rapidapi.com",
             "x-rapidapi-key":
               "8529a60fe1msh86abdd1bb20286cp190477jsnc68714d9e22c",
           },
@@ -110,44 +92,46 @@ function Home() {
           </a>
         </Typography>
       </Box>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Country</StyledTableCell>
-              <StyledTableCell align="right">Total Cases</StyledTableCell>
-              <StyledTableCell align="right">New Cases</StyledTableCell>
-              <StyledTableCell align="right">Active Cases</StyledTableCell>
-              <StyledTableCell align="right">Recovered</StyledTableCell>
-              <StyledTableCell align="right">Deaths</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.response.map((item) => (
-              <StyledTableRow key={item.country}>
-                <TableCell component="th" scope="row">
-                  {item.country}
-                </TableCell>
-                <StyledTableCell align="right">
-                  {item.cases.total}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {item.cases.new}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {item.cases.active}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {item.cases.recovered}
-                </StyledTableCell>
-                <StyledTableCell align="right" style={{ background: "red" }}>
-                  {item.deaths.total}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Paper className={classes.table}>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Country</StyledTableCell>
+                <StyledTableCell align="right">Total Cases</StyledTableCell>
+                <StyledTableCell align="right">New Cases</StyledTableCell>
+                <StyledTableCell align="right">Active Cases</StyledTableCell>
+                <StyledTableCell align="right">Recovered</StyledTableCell>
+                <StyledTableCell align="right">Deaths</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.response.map((item) => (
+                <StyledTableRow key={item.country}>
+                  <TableCell component="th" scope="row">
+                    {item.country}
+                  </TableCell>
+                  <StyledTableCell align="right">
+                    {item.cases.total}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {item.cases.new}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {item.cases.active}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {item.cases.recovered}
+                  </StyledTableCell>
+                  <StyledTableCell align="right" style={{ background: "red" }}>
+                    {item.deaths.total}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
     </>
   );
 }
