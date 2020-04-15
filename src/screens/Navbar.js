@@ -87,13 +87,13 @@ const Navbar = () => {
   return (
     <>
       <Box component="nav">
-        <AppBar position="static" style={{ background: "black" }}>
+        <AppBar position="sticky" style={{ background: "black" }}>
           <Toolbar>
             <IconButton onClick={toggleSideMenu("right", true)}>
               <MenuIcon style={{ color: "orange" }} />
             </IconButton>
             <Typography variant="h5" style={{ color: "lightblue" }}>
-              COVID-19 Tracker
+              COVID-19 LiveStats
             </Typography>
             <RightMenu
               open={state.right}

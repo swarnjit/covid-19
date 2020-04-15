@@ -11,6 +11,7 @@ import {
   Box,
   Card,
   CardContent,
+  Grid,
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import axios from "axios";
@@ -34,18 +35,28 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
   table: {
     width: "100%",
   },
   row: {
-    maxWidth: 100,
+    maxWidth: "16%",
   },
   container: {
-    maxHeight: 400,
+    maxHeight: 800,
   },
-  root: {
+  worldFacts: {
     minWidth: 200,
+    maxWidth: "100%",
     backgroundColor: "#245175",
+  },
+  bar: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: 16,
+    },
   },
   bullet: {
     display: "inline-block",
@@ -81,93 +92,130 @@ function Tracker() {
     fetchData();
   }, []);
 
+  const recoveredPercentage = (total, recovered) => {
+    return (recovered * 100) / total;
+  };
+
   return (
     <>
-      <Card className={classes.root} align="center">
-        <CardContent>
-          <Typography variant="h4" style={{ color: "white" }}>
-            Total Confirmed Cases
-            {data.response
-              .filter((item) => item.country === "All")
-              .map((item) => (
-                <Box>
-                  <Typography
-                    variant="h4"
-                    key={item.country}
-                    style={{ color: "#65dd9b" }}
-                  >
-                    {item.cases.total}
-                  </Typography>
-                  <Typography variant="h4" style={{ color: "white" }}>
-                    Total Recovered
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    key={item.country}
-                    style={{ color: "#65dd9b" }}
-                  >
-                    {item.cases.recovered}
-                  </Typography>
-                  <Typography variant="h4" style={{ color: "white" }}>
-                    Total Died
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    key={item.country}
-                    style={{ color: "red" }}
-                  >
-                    {item.deaths.total}
-                  </Typography>
-                </Box>
-              ))}
-          </Typography>
-        </CardContent>
-      </Card>
-      <Paper className={classes.table}>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell className={classes.row}>
-                  Country
-                </StyledTableCell>
-                <StyledTableCell align="right">Total Cases</StyledTableCell>
-                <StyledTableCell align="right">New Cases</StyledTableCell>
-                <StyledTableCell align="right">Active Cases</StyledTableCell>
-                <StyledTableCell align="right">Recovered</StyledTableCell>
-                <StyledTableCell align="right">Deaths</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.response.map((item) => (
-                <StyledTableRow key={item.country}>
-                  <TableCell component="th" scope="row">
-                    {item.country}
-                  </TableCell>
-                  <StyledTableCell align="right">
-                    {item.cases.total}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {item.cases.new}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {item.cases.active}
-                  </StyledTableCell>
-                  <StyledTableCell
-                    align="right"
-                    style={{ background: "green" }}
-                  >
-                    {item.cases.recovered}
-                  </StyledTableCell>
-                  <StyledTableCell align="right" style={{ background: "red" }}>
-                    {item.deaths.total}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item md={3}>
+          <Card className={classes.worldFacts} align="center">
+            <CardContent>
+              <Typography variant="h5" style={{ color: "white" }}>
+                Total Confirmed Cases
+                {data.response
+                  .filter((item) => item.country === "All")
+                  .map((item) => (
+                    <Box>
+                      <Typography
+                        variant="h4"
+                        key={item.country}
+                        style={{ color: "#65dd9b" }}
+                      >
+                        {item.cases.total}
+                      </Typography>
+                      <Typography variant="h5" style={{ color: "white" }}>
+                        Total Recovered
+                      </Typography>
+                      <Typography
+                        variant="h4"
+                        key={item.country}
+                        style={{ color: "#65dd9b" }}
+                      >
+                        {item.cases.recovered}
+                      </Typography>
+                      <Typography variant="h5" style={{ color: "white" }}>
+                        Total Died
+                      </Typography>
+                      <Typography
+                        variant="h4"
+                        key={item.country}
+                        style={{ color: "red" }}
+                      >
+                        {item.deaths.total}
+                      </Typography>
+                      <Typography variant="h5" style={{ color: "white" }}>
+                        Total Recovered %
+                      </Typography>
+                      <Typography
+                        variant="h4"
+                        key={item.country}
+                        style={{ color: "#65dd9b" }}
+                      >
+                        {recoveredPercentage(
+                          item.cases.total,
+                          item.cases.recovered
+                        ).toFixed(2) + "%"}
+                      </Typography>
+                    </Box>
+                  ))}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item md={9}>
+          <Paper className={classes.table}>
+            <TableContainer className={classes.container}>
+              <Table
+                stickyHeader
+                aria-label="sticky table"
+                style={{ overflow: "wrap" }}
+              >
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Country</StyledTableCell>
+                    <StyledTableCell>Recovered</StyledTableCell>
+                    <StyledTableCell align="right">Total Cases</StyledTableCell>
+                    <StyledTableCell align="right">New Cases</StyledTableCell>
+                    <StyledTableCell align="right">
+                      Active Cases
+                    </StyledTableCell>
+                    <StyledTableCell align="right">Recovered</StyledTableCell>
+                    <StyledTableCell align="right">Deaths</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.response.map((item) => (
+                    <StyledTableRow key={item.country}>
+                      <TableCell component="th" scope="row">
+                        {item.country}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {recoveredPercentage(
+                          item.cases.total,
+                          item.cases.recovered
+                        ).toFixed(2) + "%"}
+                      </TableCell>
+                      <StyledTableCell align="right">
+                        {item.cases.total}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {item.cases.new}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {item.cases.active}
+                      </StyledTableCell>
+                      <StyledTableCell
+                        align="right"
+                        style={{ background: "green" }}
+                      >
+                        {item.cases.recovered}
+                      </StyledTableCell>
+                      <StyledTableCell
+                        align="right"
+                        style={{ background: "red" }}
+                      >
+                        {item.deaths.total}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+        </Grid>
+      </Grid>
     </>
   );
 }
