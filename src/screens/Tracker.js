@@ -49,7 +49,7 @@ const useStyles = makeStyles({
   },
   worldFacts: {
     minWidth: 200,
-    maxWidth: "100%",
+    width: "100%",
     backgroundColor: "#245175",
   },
   bar: {
@@ -99,7 +99,7 @@ function Tracker() {
   return (
     <>
       <Grid container className={classes.root} spacing={2}>
-        <Grid item md={3}>
+        <Grid item xs={12} md={3}>
           <Card className={classes.worldFacts} align="center">
             <CardContent>
               <Typography variant="h5" style={{ color: "white" }}>
@@ -154,7 +154,7 @@ function Tracker() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={9}>
+        <Grid item xs={12} md={9}>
           <Paper className={classes.table}>
             <TableContainer className={classes.container}>
               <Table
