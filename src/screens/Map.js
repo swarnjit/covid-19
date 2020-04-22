@@ -7,7 +7,7 @@ const Map = () => {
     <>
       <Navbar />
       <Box>
-        <Typography variant="h3" style={{ color: "lightblue" }}>
+        <Typography variant="h3" color="textSecondary">
           Tracker Map for COVID-19
         </Typography>
         <iframe

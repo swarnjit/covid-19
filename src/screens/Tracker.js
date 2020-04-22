@@ -8,13 +8,13 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Box,
   Card,
   CardContent,
   Grid,
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import axios from "axios";
+import CountUp from "react-countup";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -48,9 +48,8 @@ const useStyles = makeStyles({
     maxHeight: 800,
   },
   worldFacts: {
-    minWidth: 200,
     width: "100%",
-    backgroundColor: "#245175",
+    marginTop: 20,
   },
   bar: {
     width: "100%",
@@ -68,6 +67,16 @@ const useStyles = makeStyles({
   },
   pos: {
     marginBottom: 12,
+  },
+  card: {
+    margin: "0 0 2% 2%",
+    boxShadow: "0 3px 5px 2px rgba(105,105,105, .9)",
+    borderBottom: "10px solid rgba(0, 255, 10, 0.5)",
+  },
+  cardDeath: {
+    margin: "0 0 2% 2%",
+    boxShadow: "0 3px 5px 2px rgba(105,105,105, .9)",
+    borderBottom: "10px solid rgba(205,92,92, 0.5)",
   },
 });
 
@@ -99,62 +108,100 @@ function Tracker() {
   return (
     <>
       <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12} md={3}>
-          <Card className={classes.worldFacts} align="center">
-            <CardContent>
-              <Typography variant="h5" style={{ color: "white" }}>
-                Total Confirmed Cases
-                {data.response
-                  .filter((item) => item.country === "All")
-                  .map((item) => (
-                    <Box>
-                      <Typography
-                        variant="h4"
-                        key={item.country}
-                        style={{ color: "#65dd9b" }}
-                      >
-                        {item.cases.total}
-                      </Typography>
-                      <Typography variant="h5" style={{ color: "white" }}>
-                        Total Recovered
-                      </Typography>
-                      <Typography
-                        variant="h4"
-                        key={item.country}
-                        style={{ color: "#65dd9b" }}
-                      >
-                        {item.cases.recovered}
-                      </Typography>
-                      <Typography variant="h5" style={{ color: "white" }}>
-                        Total Died
-                      </Typography>
-                      <Typography
-                        variant="h4"
-                        key={item.country}
-                        style={{ color: "red" }}
-                      >
-                        {item.deaths.total}
-                      </Typography>
-                      <Typography variant="h5" style={{ color: "white" }}>
-                        Total Recovered %
-                      </Typography>
-                      <Typography
-                        variant="h4"
-                        key={item.country}
-                        style={{ color: "#65dd9b" }}
-                      >
-                        {recoveredPercentage(
-                          item.cases.total,
-                          item.cases.recovered
-                        ).toFixed(2) + "%"}
-                      </Typography>
-                    </Box>
-                  ))}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={9}>
+        {data.response
+          .filter((item) => item.country === "All")
+          .map((item) => (
+            <Grid container className={classes.worldFacts} justify="center">
+              <Grid
+                item
+                xs={12}
+                md={2}
+                component={Card}
+                className={classes.card}
+              >
+                <CardContent>
+                  <Typography variant="h5" style={{ color: "lightblue" }}>
+                    Total Confirmed
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    key={item.country}
+                    style={{ color: "#65dd9b" }}
+                  >
+                    <CountUp start={0} end={item.cases.total} separator="," />
+                  </Typography>
+                </CardContent>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={2}
+                component={Card}
+                className={classes.card}
+              >
+                <CardContent>
+                  <Typography variant="h5" style={{ color: "lightblue" }}>
+                    Total Recovered
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    key={item.country}
+                    style={{ color: "#65dd9b" }}
+                  >
+                    <CountUp
+                      start={0}
+                      end={item.cases.recovered}
+                      separator=","
+                    />
+                  </Typography>
+                </CardContent>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={2}
+                component={Card}
+                className={classes.cardDeath}
+              >
+                <CardContent>
+                  <Typography variant="h5" style={{ color: "lightblue" }}>
+                    Total Deaths
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    key={item.country}
+                    style={{ color: "#CD5C5C" }}
+                  >
+                    <CountUp start={0} end={item.deaths.total} separator="," />
+                  </Typography>
+                </CardContent>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={2}
+                component={Card}
+                className={classes.card}
+              >
+                <CardContent>
+                  <Typography variant="h5" style={{ color: "lightblue" }}>
+                    Total Recovered %
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    key={item.country}
+                    style={{ color: "#65dd9b" }}
+                  >
+                    {recoveredPercentage(
+                      item.cases.total,
+                      item.cases.recovered
+                    ).toFixed(2) + "%"}
+                  </Typography>
+                </CardContent>
+              </Grid>
+            </Grid>
+          ))}
+        <Grid item xs={12} md={12}>
           <Paper className={classes.table}>
             <TableContainer className={classes.container}>
               <Table
