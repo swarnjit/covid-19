@@ -13,7 +13,7 @@ const About = () => {
         align="center"
         style={{
           background: "lightblue",
-          minHeight: 800,
+          height: "100%",
           WrapText: "center",
         }}
       >
@@ -23,7 +23,7 @@ const About = () => {
         <Typography
           variant="subtitle1"
           align="justify"
-          style={{ maxWidth: 500 }}
+          style={{ maxWidth: 500, margin: "0 10px" }}
         >
           The COVID-19 LiveStates updates about every 15 minutes. Map is updated
           frequently by Johns Hopkins Center for Systems Science and
