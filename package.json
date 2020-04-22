@@ -2,7 +2,7 @@
   "name": "covid-19",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://swarnjit.github.io/covid-19",
+  "homepage": "https://track-covid19.online",
   "dependencies": {
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
