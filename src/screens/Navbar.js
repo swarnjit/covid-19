@@ -38,7 +38,7 @@ const menuItems = [
   {
     listIcon: <Home />,
     listText: "Home",
-    listPath: "/covid-19",
+    listPath: "/",
   },
   {
     listIcon: <ExploreIcon />,
