@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <Route exact path="/covid-19" component={Home} />
+      <Route exact path="/" component={Home} />
       <Route path="/map-tracker" component={Map} />
       <Route path="/about" component={About} />
     </>
