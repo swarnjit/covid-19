@@ -92,7 +92,13 @@ const Navbar = () => {
             <IconButton onClick={toggleSideMenu("right", true)}>
               <MenuIcon style={{ color: "orange" }} />
             </IconButton>
-            <Typography variant="h5" style={{ color: "lightblue" }}>
+            <Typography
+              button
+              component={Link}
+              tp={"/"}
+              variant="h5"
+              style={{ color: "lightblue", textDecoration: "none" }}
+            >
               COVID-19 LiveStats
             </Typography>
             <RightMenu
