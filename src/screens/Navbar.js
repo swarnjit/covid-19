@@ -95,7 +95,7 @@ const Navbar = () => {
             <Typography
               button
               component={Link}
-              tp={"/"}
+              to={"/"}
               variant="h5"
               style={{ color: "white", textDecoration: "none" }}
             >
