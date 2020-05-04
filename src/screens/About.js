@@ -1,8 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
-import { Paper, Typography, Box, IconButton } from "@material-ui/core";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import GitHubIcon from "@material-ui/icons/GitHub";
+import { Paper, Typography } from "@material-ui/core";
+import Footer from "./Footer";
 
 const About = () => {
   return (
@@ -37,28 +36,8 @@ const About = () => {
           Designed by:
         </Typography>
         <Typography variant="body1">Swarnjit Singh Chahal</Typography>
-        <Box>
-          <Typography variant="h6" style={{ color: "Blue" }}>
-            Connect with me
-          </Typography>
-          <IconButton
-            aria-label="Linkedin.com"
-            onClick={() =>
-              window.open(
-                "https://www.linkedin.com/in/swarnjit-chahal-2239492a/"
-              )
-            }
-          >
-            <LinkedInIcon />
-          </IconButton>
-          <IconButton
-            aria-label="GitHub.com"
-            onClick={() => window.open("https://github.com/swarnjit/covid-19")}
-          >
-            <GitHubIcon />
-          </IconButton>
-        </Box>
       </Paper>
+      <Footer />
     </>
   );
 };

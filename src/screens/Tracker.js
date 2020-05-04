@@ -37,6 +37,7 @@ const StyledTableRow = withStyles((theme) => ({
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
+    marginBottom: 6,
   },
   table: {
     width: "100%",
@@ -209,6 +210,10 @@ function Tracker() {
                 aria-label="sticky table"
                 style={{ overflow: "wrap" }}
               >
+                <caption>
+                  Countries with 0 recovered cases means there is no data
+                  recieved from that country
+                </caption>
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>Country</StyledTableCell>
