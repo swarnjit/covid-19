@@ -18,7 +18,7 @@ import CountUp from "react-countup";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: "#4267b2",
     color: theme.palette.common.white,
   },
   body: {
@@ -215,7 +215,7 @@ function Tracker() {
                   recieved from that country
                 </caption>
                 <TableHead>
-                  <TableRow>
+                  <TableRow style={{ backgroundColor: "#4267b2" }}>
                     <StyledTableCell>Country</StyledTableCell>
                     <StyledTableCell>Recovered</StyledTableCell>
                     <StyledTableCell align="right">Total Cases</StyledTableCell>

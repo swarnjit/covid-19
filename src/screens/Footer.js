@@ -6,7 +6,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#4267b2",
   },
   copyright: {
     backgroundColor: "#333",
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   icons: {
     height: theme.spacing(6),
     width: theme.spacing(6),
+    color: "white",
   },
 }));
 const Footer = () => {
@@ -23,7 +24,7 @@ const Footer = () => {
     <>
       <Paper className={classes.footer}>
         <Box align="center">
-          <Typography variant="h6" style={{ color: "Blue" }}>
+          <Typography variant="h6" style={{ color: "white" }}>
             Connect with me
           </Typography>
           <IconButton

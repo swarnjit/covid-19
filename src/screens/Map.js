@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { Typography, Box } from "@material-ui/core";
+import Footer from "./Footer";
 
 const Map = () => {
   return (
@@ -27,6 +28,7 @@ const Map = () => {
           </a>
         </Typography>
       </Box>
+      <Footer />
     </>
   );
 };

@@ -87,17 +87,17 @@ const Navbar = () => {
   return (
     <>
       <Box component="nav">
-        <AppBar position="sticky" style={{ background: "black" }}>
+        <AppBar position="sticky" style={{ background: "#4267b2" }}>
           <Toolbar>
             <IconButton onClick={toggleSideMenu("right", true)}>
-              <MenuIcon style={{ color: "orange" }} />
+              <MenuIcon style={{ color: "#f08113" }} />
             </IconButton>
             <Typography
               button
               component={Link}
               tp={"/"}
               variant="h5"
-              style={{ color: "lightblue", textDecoration: "none" }}
+              style={{ color: "white", textDecoration: "none" }}
             >
               COVID-19 LiveStats
             </Typography>
