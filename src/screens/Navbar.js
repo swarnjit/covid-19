@@ -20,7 +20,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   menuContainer: {
     width: 250,
-    background: "#311",
+    background: "white",
     height: "30rem",
   },
   avatar: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(14),
   },
   listItem: {
-    color: "lightblue",
+    color: "black",
   },
 }));
 

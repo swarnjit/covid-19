@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as _ from "lodash";
 import {
   Typography,
   Table,
@@ -13,8 +14,8 @@ import {
   Grid,
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import axios from "axios";
 import CountUp from "react-countup";
+import { fetchDataGlobal } from "../apis/apiCore";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -86,18 +87,7 @@ function Tracker() {
   const [data, setData] = useState({ response: [] });
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        "https://covid-193.p.rapidapi.com/statistics",
-        {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "covid-193.p.rapidapi.com",
-            "x-rapidapi-key":
-              "8529a60fe1msh86abdd1bb20286cp190477jsnc68714d9e22c",
-          },
-        }
-      );
-      setData(result.data);
+      setData(await fetchDataGlobal());
     };
     fetchData();
   }, []);
@@ -105,11 +95,12 @@ function Tracker() {
   const recoveredPercentage = (total, recovered) => {
     return (recovered * 100) / total;
   };
+  const item = data.response;
 
   return (
     <>
       <Grid container className={classes.root} spacing={2}>
-        {data.response
+        {item
           .filter((item) => item.country === "All")
           .map((item) => (
             <Grid container className={classes.worldFacts} justify="center">
@@ -228,40 +219,42 @@ function Tracker() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data.response.map((item) => (
-                    <StyledTableRow key={item.country}>
-                      <TableCell component="th" scope="row">
-                        {item.country}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {recoveredPercentage(
-                          item.cases.total,
-                          item.cases.recovered
-                        ).toFixed(2) + "%"}
-                      </TableCell>
-                      <StyledTableCell align="right">
-                        {item.cases.total}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {item.cases.new}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {item.cases.active}
-                      </StyledTableCell>
-                      <StyledTableCell
-                        align="right"
-                        style={{ background: "green" }}
-                      >
-                        {item.cases.recovered}
-                      </StyledTableCell>
-                      <StyledTableCell
-                        align="right"
-                        style={{ background: "red" }}
-                      >
-                        {item.deaths.total}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
+                  {_.sortBy(item, "cases.total")
+                    .reverse()
+                    .map((item) => (
+                      <StyledTableRow key={item.country}>
+                        <TableCell component="th" scope="row">
+                          {item.country}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {recoveredPercentage(
+                            item.cases.total,
+                            item.cases.recovered
+                          ).toFixed(2) + "%"}
+                        </TableCell>
+                        <StyledTableCell align="right">
+                          {item.cases.total}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {item.cases.new}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {item.cases.active}
+                        </StyledTableCell>
+                        <StyledTableCell
+                          align="right"
+                          style={{ background: "green" }}
+                        >
+                          {item.cases.recovered}
+                        </StyledTableCell>
+                        <StyledTableCell
+                          align="right"
+                          style={{ background: "red" }}
+                        >
+                          {item.deaths.total}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>
