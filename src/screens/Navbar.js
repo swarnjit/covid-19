@@ -17,6 +17,7 @@ import { Home, ContactMail } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import ExploreIcon from "@material-ui/icons/Explore";
 import { makeStyles } from "@material-ui/core/styles";
+
 const useStyles = makeStyles((theme) => ({
   menuContainer: {
     width: 250,
@@ -52,7 +53,7 @@ const menuItems = [
   },
 ];
 
-const Navbar = () => {
+function Navbar() {
   const [state, setState] = useState({
     right: false,
   });
@@ -112,6 +113,6 @@ const Navbar = () => {
       </Box>
     </>
   );
-};
+}
 
 export default Navbar;

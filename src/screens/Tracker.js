@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
 import * as _ from "lodash";
+import PropTypes from "prop-types";
+import Avatar from "@material-ui/core/Avatar";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import PersonIcon from "@material-ui/icons/Person";
+import AddIcon from "@material-ui/icons/Add";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   Typography,
   Table,
@@ -54,7 +65,7 @@ const useStyles = makeStyles({
     marginTop: 20,
   },
   bar: {
-    width: "100%",
+    width: "90%",
     "& > * + *": {
       marginTop: 16,
     },
@@ -84,14 +95,17 @@ const useStyles = makeStyles({
 
 function Tracker() {
   const classes = useStyles();
+
   const [data, setData] = useState({ response: [] });
+
   useEffect(() => {
     const fetchData = async () => {
-      setData(await fetchDataGlobal());
+      const results = await fetchDataGlobal();
+      setData(results);
     };
     fetchData();
   }, []);
-
+  console.log(data);
   const recoveredPercentage = (total, recovered) => {
     return (recovered * 100) / total;
   };
