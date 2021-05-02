@@ -110,7 +110,6 @@ function Tracker() {
     return (recovered * 100) / total;
   };
   const item = data.response;
-
   return (
     <>
       <Grid container className={classes.root} spacing={2}>

@@ -10,7 +10,7 @@ function App() {
     <>
       <CssBaseline />
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/covid-19" component={Home} />
         <Route path="/map-tracker" component={Map} />
         <Route path="/about" component={About} />
       </Switch>{" "}
