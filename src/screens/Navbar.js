@@ -39,7 +39,7 @@ const menuItems = [
   {
     listIcon: <Home />,
     listText: "Home",
-    listPath: "/",
+    listPath: "/covid-19",
   },
   {
     listIcon: <ExploreIcon />,
@@ -96,7 +96,7 @@ function Navbar() {
             <Typography
               button
               component={Link}
-              to={"/"}
+              to={"/covid-19"}
               variant="h5"
               style={{ color: "white", textDecoration: "none" }}
             >
